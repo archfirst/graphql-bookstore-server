@@ -1,5 +1,10 @@
 Bookstore GraphQL API
 =====================
+Most tutorials that teach GraphQL are code-centric - they start with a simple example, such as a to-do list, and show the code to implement it. In this project, I will take a domain-centric approach, starting with a simple domain consisting of different entities and relationships and showing how such a domain could be implemented using GraphQL.
+
+The domain we have selected is that of a bookstore. The bookstore sells books. A book can have one or more authors and a single publisher. However, an author could have written several books and a publisher could have published many books too. More formally, book-to-author is a many-to-many relationship, whereas book-to-publisher is a many-to-one relationship. This is depicted in the domain model below. In this project we show how such a domain can be implemented using GraphQL.
+
+![Domain Model](assets/bookstore-domain-model.png)
 
 Getting started (Dev Mode)
 --------------------------
@@ -7,7 +12,7 @@ To run the application in development mode:
 ```bash
 $ npm install
 $ npm run start-db
-$ npm run watch  // run this in a separate shell
+$ npm run watch  <--- run this in a separate shell
 ```
 
 - `npm install` installs the required node libraries under `node_modules`. This needs to be run only once.
