@@ -29,10 +29,18 @@ type Query {
   book(id: ID!): Book
 }
 
+# The schema allows the following mutations
+type Mutation {
+  createAuthor(id: ID!, name: String!): Author,
+  createPublisher(id: ID!, name: String!): Publisher,
+  createBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book
+}
+
 # The types that represent the root query and root mutation.
 # We call them RootQuery and RootMutation by convention.
 schema {
-  query: Query
+  query: Query,
+  mutation: Mutation
 }
 `;
 

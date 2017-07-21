@@ -120,3 +120,66 @@ with the following variables
 
 Mutations
 ---------
+### Create an author
+```
+mutation CreateAuthor($id: ID!, $name: String!) {
+  createAuthor(id: $id, name: $name) {
+    id,
+    name
+  }
+}
+```
+
+with the following variables
+```
+{
+  "id": "robert-martin",
+  "name": "Robert C. Martin"
+}
+```
+
+### Create a publisher
+```
+mutation CreatePublisher($id: ID!, $name: String!) {
+  createPublisher(id: $id, name: $name) {
+    id,
+    name
+  }
+}
+```
+
+with the following variables
+```
+{
+  "id": "prentice-hall",
+  "name": "Prentice Hall"
+}
+```
+
+### Create a book
+```
+mutation CreateBook($id: ID!, $name: String!, $publisherId: ID!, $authorIds: [ID!]!) {
+  createBook(id: $id, name: $name, publisherId: $publisherId, authorIds: $authorIds) {
+    id,
+    name,
+    publisher {
+      name
+    },
+    authors {
+      name
+    }
+  }
+}
+```
+
+with the following variables
+```
+{
+  "id": "clean-code",
+  "name": "Clean Code - A Handbook of Agile Software Craftsmanship",
+  "publisherId": "prentice-hall",
+  "authorIds": [
+    "robert-martin"
+  ]
+}
+```

@@ -100,6 +100,34 @@ const resolverMap = {
                     return Promise.all(promises);
                 });
         }
+    },
+
+    Mutation: {
+        createAuthor(root, {id, name}) {
+            return axios
+            .post(config.dbApi.authors, {id, name})
+            .then((response) => (response.data));
+        },
+
+        createPublisher(root, {id, name}) {
+            return axios
+            .post(config.dbApi.publishers, {id, name})
+            .then((response) => (response.data));
+        },
+
+        createBook(root, {id, name, publisherId, authorIds}) {
+            return axios
+            .post(config.dbApi.books, {id, name, publisherId})
+            .then(() => {
+                const bookId = id;
+                return Promise.all(authorIds.map(authorId => (axios.post(config.dbApi.bookAuthors, {
+                    id: `${bookId}-${authorId}`,
+                    bookId: bookId,
+                    authorId: authorId
+                }))));
+            })
+            .then(() => ({id, name, publisherId}));
+        }
     }
 };
 
