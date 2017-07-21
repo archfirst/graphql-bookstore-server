@@ -78,8 +78,8 @@ const resolverMap = {
     Book: {
         publisher(book) {
             return axios
-            .get(`${config.dbApi.publishers}/${book.publisherId}`)
-            .then(response => response.data);
+                .get(`${config.dbApi.publishers}/${book.publisherId}`)
+                .then(response => response.data);
         },
         authors(book) {
             return axios
@@ -103,30 +103,34 @@ const resolverMap = {
     },
 
     Mutation: {
-        createAuthor(root, {id, name}) {
+        createAuthor(root, { id, name }) {
             return axios
-            .post(config.dbApi.authors, {id, name})
-            .then((response) => (response.data));
+                .post(config.dbApi.authors, { id, name })
+                .then(response => response.data);
         },
 
-        createPublisher(root, {id, name}) {
+        createPublisher(root, { id, name }) {
             return axios
-            .post(config.dbApi.publishers, {id, name})
-            .then((response) => (response.data));
+                .post(config.dbApi.publishers, { id, name })
+                .then(response => response.data);
         },
 
-        createBook(root, {id, name, publisherId, authorIds}) {
+        createBook(root, { id, name, publisherId, authorIds }) {
             return axios
-            .post(config.dbApi.books, {id, name, publisherId})
-            .then(() => {
-                const bookId = id;
-                return Promise.all(authorIds.map(authorId => (axios.post(config.dbApi.bookAuthors, {
-                    id: `${bookId}-${authorId}`,
-                    bookId: bookId,
-                    authorId: authorId
-                }))));
-            })
-            .then(() => ({id, name, publisherId}));
+                .post(config.dbApi.books, { id, name, publisherId })
+                .then(() => {
+                    const bookId = id;
+                    return Promise.all(
+                        authorIds.map(authorId =>
+                            axios.post(config.dbApi.bookAuthors, {
+                                id: `${bookId}-${authorId}`,
+                                bookId: bookId,
+                                authorId: authorId
+                            })
+                        )
+                    );
+                })
+                .then(() => ({ id, name, publisherId }));
         }
     }
 };
