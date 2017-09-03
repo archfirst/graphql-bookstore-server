@@ -1,8 +1,19 @@
-Bookstore GraphQL API
-=====================
-Most tutorials that teach GraphQL are code-centric - they start with a simple example, such as a to-do list, and show the code to implement it. In this project, I will take a domain-centric approach, starting with a simple domain consisting of different entities and relationships and showing how such a domain could be implemented using GraphQL.
+GraphQL Bookstore Server
+========================
+This example demonstrates the patterns used in real-world GraphQL applications and how to implement them using [Apollo GraphQL](http://dev.apollodata.com/) tools and libraries.
 
-The domain we have selected is that of a bookstore. The bookstore sells books. A book can have one or more authors and a single publisher. However, an author could have written several books and a publisher could have published many books too. More formally, book-to-author is a many-to-many relationship, whereas book-to-publisher is a many-to-one relationship. This is depicted in the domain model below. In this project we show how such a domain can be implemented using GraphQL.
+1. In any realistic application, you will encounter one-to-many and many-to-many relationships between domain entities. In this example, we use the bookstore domain to illustrate how to implement these relationships.
+2. In many applications, there is a need to show real-time updates on the client. We demonstrate how to do this using GraphQL subscriptions.
+
+First, a quick description of the bookstore domain:
+
+- A bookstore sells books.
+- A book can have one or more authors.
+- A book has a single publisher.
+- An author can write several books.
+- A publisher can publish several books.
+
+More formally, book-to-author is a many-to-many relationship, whereas book-to-publisher is a many-to-one relationship. This is depicted in the domain model below.
 
 ![Domain Model](assets/bookstore-domain-model.png)
 
