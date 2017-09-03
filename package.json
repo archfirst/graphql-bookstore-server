@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start-db": "json-server --watch data/db.json --port 9000",
-    "watch": "nodemon --exec npm run watch:serve",
+    "watch": "nodemon --watch src --exec npm run watch:serve",
     "watch:serve": "babel-node --inspect src/index.js",
     "lint": "eslint src --ext .js",
     "build": "del-cli dist && npm run lint && babel src -d dist",
