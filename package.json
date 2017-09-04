@@ -32,7 +32,9 @@
     "express": "^4.15.4",
     "graphql": "^0.11.2",
     "graphql-server-express": "^1.1.2",
-    "graphql-tools": "^1.2.2"
+    "graphql-subscriptions": "^0.4.4",
+    "graphql-tools": "^1.2.2",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "scripts": {
     "start-db": "json-server --watch data/db.json --port 9000",

@@ -2,11 +2,12 @@
 // Load environment variables from the .env file before doing anything else
 // -----------------------------------------------------------------------------
 import { config as envConfig } from 'dotenv';
+
 envConfig();
 
 // --- Remaining imports -----
 import { createServer } from 'http';
-import createApp from './app.factory';
+import { createApp, createSubscriptionServer } from './app.factory';
 import { init as configInit } from './config';
 
 // -----------------------------------------------------------------------------
@@ -20,7 +21,10 @@ configInit();
 const port = process.env.SERVER_PORT;
 const app = createApp();
 const server = createServer(app);
-server.listen(port, () => console.log('Listening on port ' + port));
+server.listen(port, () => {
+    console.log('Listening on port ' + port);
+    createSubscriptionServer(server);
+});
 
 // -----------------------------------------------------------------------------
 // When SIGINT is received (i.e. Ctrl-C is pressed), shutdown services

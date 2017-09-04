@@ -19,7 +19,7 @@ type Book {
   authors: [Author!]!
 }
 
-# The schema allows the following queries
+# Root Query - all the queries supported by the schema
 type Query {
   authors: [Author!]!,
   author(id: ID!): Author,
@@ -29,18 +29,23 @@ type Query {
   book(id: ID!): Book
 }
 
-# The schema allows the following mutations
+# Root Mutation - all the mutations supported by the schema
 type Mutation {
   createAuthor(id: ID!, name: String!): Author,
   createPublisher(id: ID!, name: String!): Publisher,
   createBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book
 }
 
-# The types that represent the root query and root mutation.
-# We call them RootQuery and RootMutation by convention.
+# Root Subscription - all the subscriptions supported by the schema
+type Subscription {
+    authorAdded: Author
+}
+
+# schema consists of the Root Query, the Root Mutation and the Root Subscription
 schema {
   query: Query,
-  mutation: Mutation
+  mutation: Mutation,
+  subscription: Subscription
 }
 `;
 

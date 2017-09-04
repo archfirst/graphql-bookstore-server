@@ -1,10 +1,16 @@
 import axios from 'axios';
+import { PubSub } from 'graphql-subscriptions';
 import { config } from '../config';
+
+// ------------------------------------------------------------------------------------------------
+// Create a PubSub instance
+// ------------------------------------------------------------------------------------------------
+export const pubsub = new PubSub();
 
 // ------------------------------------------------------------------------------------------------
 // Resolvers
 // ------------------------------------------------------------------------------------------------
-const resolverMap = {
+export const rootResolver = {
     Query: {
         authors() {
             return axios
@@ -106,7 +112,11 @@ const resolverMap = {
         createAuthor(root, { id, name }) {
             return axios
                 .post(config.dbApi.authors, { id, name })
-                .then(response => response.data);
+                .then(response => {
+                    const author = response.data;
+                    pubsub.publish('authorAdded', author);
+                    return author;
+                });
         },
 
         createPublisher(root, { id, name }) {
@@ -132,7 +142,11 @@ const resolverMap = {
                 })
                 .then(() => ({ id, name, publisherId }));
         }
+    },
+
+    Subscription: {
+        authorAdded: {
+            subscribe: () => pubsub.asyncIteractor('authorAdded')
+        }
     }
 };
-
-export default resolverMap;
