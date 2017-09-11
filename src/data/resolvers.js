@@ -10,7 +10,7 @@ export const pubsub = new PubSub();
 // ------------------------------------------------------------------------------------------------
 // Resolvers
 // ------------------------------------------------------------------------------------------------
-export const rootResolver = {
+export const resolvers = {
     Query: {
         authors() {
             return axios
@@ -114,7 +114,9 @@ export const rootResolver = {
                 .post(config.dbApi.authors, { id, name })
                 .then(response => {
                     const author = response.data;
-                    pubsub.publish('authorAdded', author);
+                    pubsub.publish('authorAdded', {
+                        authorAdded: author
+                    });
                     return author;
                 });
         },
@@ -146,7 +148,7 @@ export const rootResolver = {
 
     Subscription: {
         authorAdded: {
-            subscribe: () => pubsub.asyncIteractor('authorAdded')
+            subscribe: () => pubsub.asyncIterator('authorAdded')
         }
     }
 };

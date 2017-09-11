@@ -3,10 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import { execute, subscribe } from 'graphql';
 import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { rootResolver } from './data/resolvers';
-import schema from './data/schema';
+import { schema } from './data/schema';
 
 export function createApp() {
     // Create Express App
@@ -16,17 +14,11 @@ export function createApp() {
     app.use(cors());
 
     // Add GraphQL server at /graphql
-    const executableSchema = makeExecutableSchema({
-        typeDefs: schema,
-        resolvers: rootResolver
-    });
-
     app.use(
         '/graphql',
         bodyParser.json(),
         graphqlExpress({
-            schema: executableSchema,
-            context: {}
+            schema
         })
     );
 
@@ -44,7 +36,7 @@ export function createApp() {
 }
 
 export function createSubscriptionServer(server) {
-    return new SubscriptionServer(
+    new SubscriptionServer(
         {
             execute,
             subscribe,

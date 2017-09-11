@@ -1,5 +1,7 @@
-const schema = `
+import { makeExecutableSchema } from 'graphql-tools';
+import { resolvers } from './resolvers';
 
+const typeDefs = `
 type Author {
   id: ID!,
   name: String!,
@@ -49,4 +51,8 @@ schema {
 }
 `;
 
-export default schema;
+// Create the schema
+export const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers
+});

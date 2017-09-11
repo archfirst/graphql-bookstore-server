@@ -30,11 +30,11 @@
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
-    "graphql": "^0.11.2",
-    "graphql-server-express": "^1.1.2",
+    "graphql": "^0.10.5",
+    "graphql-server-express": "^0.8.5",
     "graphql-subscriptions": "^0.4.4",
     "graphql-tools": "^1.2.2",
-    "subscriptions-transport-ws": "^0.8.2"
+    "subscriptions-transport-ws": "^0.7.3"
   },
   "scripts": {
     "start-db": "json-server --watch data/db.json --port 9000",
