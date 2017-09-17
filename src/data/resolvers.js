@@ -127,6 +127,12 @@ export const resolvers = {
                 .then(response => response.data);
         },
 
+        updatePublisher(root, { id, name }) {
+            return axios
+                .put(`${config.dbApi.publishers}/${id}`, { id, name })
+                .then(response => response.data);
+        },
+
         createBook(root, { id, name, publisherId, authorIds }) {
             return axios
                 .post(config.dbApi.books, { id, name, publisherId })
