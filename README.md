@@ -199,3 +199,31 @@ with the following variables
   ]
 }
 ```
+
+Subscriptions
+-------------
+Run the following query in GraphiQL to subscribe to `authorAdded` messages:
+
+```
+subscription {
+  authorAdded {
+    id
+    name
+  }
+}
+```
+
+When you run this query, you should see a message like this:
+
+> "Your subscription data will appear here after server publication!"
+
+Now run GraphiQL in a second browser window, and create an author following the instructions above (under Mutations). When you add a new author, you should see a message like this in the first GraphiQL window:
+
+```
+{
+  "authorAdded": {
+    "id": "donald-knuth",
+    "name": "Donald E. Knuth"
+  }
+}
+```
