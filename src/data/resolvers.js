@@ -121,6 +121,18 @@ export const resolvers = {
                 });
         },
 
+        updateAuthor(root, { id, name }) {
+            return axios
+                .put(`${config.dbApi.authors}/${id}`, { id, name })
+                .then(response => {
+                    const author = response.data;
+                    pubsub.publish('authorUpdated', {
+                        authorUpdated: author
+                    });
+                    return author;
+                });
+        },
+
         createPublisher(root, { id, name }) {
             return axios
                 .post(config.dbApi.publishers, { id, name })
@@ -136,7 +148,13 @@ export const resolvers = {
         updatePublisher(root, { id, name }) {
             return axios
                 .put(`${config.dbApi.publishers}/${id}`, { id, name })
-                .then(response => response.data);
+                .then(response => {
+                    const publisher = response.data;
+                    pubsub.publish('publisherUpdated', {
+                        publisherUpdated: publisher
+                    });
+                    return publisher;
+                });
         },
 
         createBook(root, { id, name, publisherId, authorIds }) {
@@ -161,6 +179,27 @@ export const resolvers = {
                     });
                     return book;
                 });
+        },
+
+        updateBook(root, { id, name, publisherId /* , authorIds */ }) {
+            return (
+                axios
+                    .put(`${config.dbApi.books}/${id}`, {
+                        id,
+                        name,
+                        publisherId
+                    })
+                    // .then(() => {
+                    // TODO: Remove and add authorIds
+                    // })
+                    .then(() => {
+                        const book = { id, name, publisherId };
+                        pubsub.publish('bookUpdated', {
+                            bookUpdated: book
+                        });
+                        return book;
+                    })
+            );
         }
     },
 
@@ -168,11 +207,20 @@ export const resolvers = {
         authorAdded: {
             subscribe: () => pubsub.asyncIterator('authorAdded')
         },
+        authorUpdated: {
+            subscribe: () => pubsub.asyncIterator('authorUpdated')
+        },
         publisherAdded: {
             subscribe: () => pubsub.asyncIterator('publisherAdded')
         },
+        publisherUpdated: {
+            subscribe: () => pubsub.asyncIterator('publisherUpdated')
+        },
         bookAdded: {
             subscribe: () => pubsub.asyncIterator('bookAdded')
+        },
+        bookUpdated: {
+            subscribe: () => pubsub.asyncIterator('bookUpdated')
         }
     }
 };

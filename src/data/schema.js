@@ -34,16 +34,21 @@ type Query {
 # Root Mutation - all the mutations supported by the schema
 type Mutation {
   createAuthor(id: ID!, name: String!): Author,
+  updateAuthor(id: ID!, name: String!): Author,
   createPublisher(id: ID!, name: String!): Publisher,
   updatePublisher(id: ID!, name: String!): Publisher,
-  createBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book
+  createBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book,
+  updateBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book
 }
 
 # Root Subscription - all the subscriptions supported by the schema
 type Subscription {
-    authorAdded: Author,
-    publisherAdded: Publisher,
-    bookAdded: Book
+  authorAdded: Author,
+  authorUpdated: Author,
+  publisherAdded: Publisher,
+  publisherUpdated: Publisher,
+  bookAdded: Book,
+  bookUpdated: Book
 }
 
 # schema consists of the Root Query, the Root Mutation and the Root Subscription
