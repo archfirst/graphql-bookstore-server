@@ -41,7 +41,9 @@ type Mutation {
 
 # Root Subscription - all the subscriptions supported by the schema
 type Subscription {
-    authorAdded: Author
+    authorAdded: Author,
+    publisherAdded: Publisher,
+    bookAdded: Book
 }
 
 # schema consists of the Root Query, the Root Mutation and the Root Subscription

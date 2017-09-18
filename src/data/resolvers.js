@@ -124,7 +124,13 @@ export const resolvers = {
         createPublisher(root, { id, name }) {
             return axios
                 .post(config.dbApi.publishers, { id, name })
-                .then(response => response.data);
+                .then(response => {
+                    const publisher = response.data;
+                    pubsub.publish('publisherAdded', {
+                        publisherAdded: publisher
+                    });
+                    return publisher;
+                });
         },
 
         updatePublisher(root, { id, name }) {
@@ -148,13 +154,25 @@ export const resolvers = {
                         )
                     );
                 })
-                .then(() => ({ id, name, publisherId }));
+                .then(() => {
+                    const book = { id, name, publisherId };
+                    pubsub.publish('bookAdded', {
+                        bookAdded: book
+                    });
+                    return book;
+                });
         }
     },
 
     Subscription: {
         authorAdded: {
             subscribe: () => pubsub.asyncIterator('authorAdded')
+        },
+        publisherAdded: {
+            subscribe: () => pubsub.asyncIterator('publisherAdded')
+        },
+        bookAdded: {
+            subscribe: () => pubsub.asyncIterator('bookAdded')
         }
     }
 };
