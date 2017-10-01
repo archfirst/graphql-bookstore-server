@@ -173,6 +173,10 @@ export const resolvers = {
                     );
                 })
                 .then(() => {
+                    // TODO: Just returning id and name works, but if
+                    // the client asks for publisher and authors as a
+                    // result of this mutation, then the server gets
+                    // confused. It starts doing a GET /publishers/undefined
                     const book = { id, name, publisherId, authorIds };
                     pubsub.publish('bookAdded', {
                         bookAdded: book
