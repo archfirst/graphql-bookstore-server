@@ -173,7 +173,7 @@ export const resolvers = {
                     );
                 })
                 .then(() => {
-                    const book = { id, name, publisherId };
+                    const book = { id, name, publisherId, authorIds };
                     pubsub.publish('bookAdded', {
                         bookAdded: book
                     });
@@ -181,7 +181,7 @@ export const resolvers = {
                 });
         },
 
-        updateBook(root, { id, name, publisherId /* , authorIds */ }) {
+        updateBook(root, { id, name, publisherId, authorIds }) {
             return (
                 axios
                     .put(`${config.dbApi.books}/${id}`, {
@@ -193,7 +193,7 @@ export const resolvers = {
                     // TODO: Remove and add authorIds
                     // })
                     .then(() => {
-                        const book = { id, name, publisherId };
+                        const book = { id, name, publisherId, authorIds };
                         pubsub.publish('bookUpdated', {
                             bookUpdated: book
                         });

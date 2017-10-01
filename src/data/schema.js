@@ -5,29 +5,29 @@ const typeDefs = `
 type Author {
   id: ID!,
   name: String!,
-  books: [Book!]!
+  books: [Book]
 }
 
 type Publisher {
   id: ID!,
   name: String!,
-  books: [Book!]!
+  books: [Book]
 }
 
 type Book {
   id: ID!,
   name: String!,
-  publisher: Publisher!,
-  authors: [Author!]!
+  publisher: Publisher,
+  authors: [Author]
 }
 
 # Root Query - all the queries supported by the schema
 type Query {
-  authors: [Author!]!,
+  authors: [Author],
   author(id: ID!): Author,
-  publishers: [Publisher!]!,
+  publishers: [Publisher],
   publisher(id: ID!): Publisher,
-  books: [Book!]!,
+  books: [Book],
   book(id: ID!): Book
 }
 
@@ -37,8 +37,8 @@ type Mutation {
   updateAuthor(id: ID!, name: String!): Author,
   createPublisher(id: ID!, name: String!): Publisher,
   updatePublisher(id: ID!, name: String!): Publisher,
-  createBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book,
-  updateBook(id: ID!, name: String!, publisherId: ID!, authorIds: [ID!]!): Book
+  createBook(id: ID!, name: String!, publisherId: ID, authorIds: [ID]): Book,
+  updateBook(id: ID!, name: String!, publisherId: ID, authorIds: [ID]): Book
 }
 
 # Root Subscription - all the subscriptions supported by the schema
