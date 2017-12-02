@@ -33,6 +33,8 @@ $ npm run watch  <--- run this in a separate shell
 
 Then point your browser to [http://localhost:8080/graphiql](http://localhost:8080/graphiql). You should now be able to perform queries and mutations as defined in the sections below.
 
+To debug the server in Chrome, point your browser to chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:9229/{uuid of debugger}
+
 Building for production
 -----------------------
 When you want to deploy the application into production, run the following command:
