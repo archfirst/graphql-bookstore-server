@@ -1,5 +1,7 @@
-GraphQL Bookstore Server
-========================
+GraphQL Bookstore Server (Obsolete)
+===================================
+**This repo is obsolete. Please go to the new [GraphQL Bookstore](https://github.com/nareshbhatia/graphql-bookstore) repo for the latest version.**
+
 This example demonstrates the patterns used in real-world GraphQL applications and how to implement them using [Apollo GraphQL](http://dev.apollodata.com/) tools and libraries.
 
 1. In any realistic application, you will encounter one-to-many and many-to-many relationships between domain entities. In this example, we use the bookstore domain to illustrate how to implement these relationships.
